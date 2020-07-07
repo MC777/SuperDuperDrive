@@ -1,23 +1,23 @@
 package com.udacity.jwdnd.course1.cloudstorage.model;
 
 public class Note {
-    private Integer noteId;
+    private Long noteId;
     private String noteTitle;
     private String noteDescription;
-    private Integer userId;
 
-    public Note(Integer noteId, String noteTitle, String noteDescription, Integer userId) {
+    public Note() { }
+
+    public Note(Long noteId, String noteTitle, String noteDescription) {
         this.noteId = noteId;
         this.noteTitle = noteTitle;
         this.noteDescription = noteDescription;
-        this.userId = userId;
     }
 
-    public Integer getNoteId() {
+    public Long getNoteId() {
         return noteId;
     }
 
-    public void setNoteId(Integer noteId) {
+    public void setNoteId(Long noteId) {
         this.noteId = noteId;
     }
 
@@ -35,13 +35,5 @@ public class Note {
 
     public void setNoteDescription(String noteDescription) {
         this.noteDescription = noteDescription;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 }
