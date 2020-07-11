@@ -6,15 +6,16 @@ public class File {
     private String contentType;
     private Long fileSize;
     private byte[] fileData;
+    private Long userId;
 
     public File() { }
 
-    public File(Long fileId, String fileName, String contentType, Long fileSize, byte[] fileData) {
-        this.fileId = fileId;
+    public File(String fileName, String contentType, Long fileSize, byte[] fileData, Long userId) {
         this.fileName = fileName;
         this.contentType = contentType;
         this.fileSize = fileSize;
         this.fileData = fileData;
+        this.userId = userId;
     }
 
     public Long getFileId() {
@@ -55,5 +56,13 @@ public class File {
 
     public void setFileData(byte[] fileData) {
         this.fileData = fileData;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }
