@@ -20,23 +20,35 @@ public class NoteService {
         return notesMapper.findAll();
     }
 
-    public List<Note> getAllByUserId(Long userId) {
-        return notesMapper.findByUserId(userId);
+    public List<Note> getAllByUserId(Long userid) {
+        return notesMapper.findByUserId(userid);
     }
 
-    public Note getById(Long id) {
-        return notesMapper.findById(id);
+    public Note getById(Long id, Long userid) {
+        return notesMapper.findById(id, userid);
     }
 
-    public boolean create(Note note, Long userId) {
-        return notesMapper.create(note, userId) > 0;
+    public Boolean isNoteExists(Long id, Long userid) throws Exception {
+        try {
+            Note note = notesMapper.findById(id, userid);
+            if (note == null) {
+                return Boolean.FALSE;
+            }
+            return Boolean.TRUE;
+        }  catch (Exception e) {
+            throw e;
+        }
     }
 
-    public boolean update(Note note, Long userId) {
-        return notesMapper.update(note, userId) > 0;
+    public boolean create(Note note, Long userid) {
+        return notesMapper.create(note, userid) > 0;
     }
 
-    public boolean delete(Long id, Long userId) {
-        return notesMapper.delete(id, userId) > 0;
+    public boolean update(Note note, Long userid) {
+        return notesMapper.update(note, userid) > 0;
+    }
+
+    public boolean delete(Long id, Long userid) {
+        return notesMapper.delete(id, userid) > 0;
     }
 }
