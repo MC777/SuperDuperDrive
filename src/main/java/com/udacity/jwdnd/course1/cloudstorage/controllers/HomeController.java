@@ -1,8 +1,8 @@
 package com.udacity.jwdnd.course1.cloudstorage.controllers;
 
-import com.udacity.jwdnd.course1.cloudstorage.model.File;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import com.udacity.jwdnd.course1.cloudstorage.services.FileService;
+import com.udacity.jwdnd.course1.cloudstorage.services.NoteService;
 import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -21,11 +21,15 @@ public class HomeController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private NoteService noteService;
+
     @GetMapping()
     public String homepageView(Authentication authentication, Model model) {
         String username = authentication.getName();
         User user = userService.getUser(username);
         model.addAttribute("files", fileService.getAllFiles(user.getUserid()));
+        model.addAttribute("notes", noteService.getAllByUserId(user.getUserid()));
         return "home";
     }
 }
