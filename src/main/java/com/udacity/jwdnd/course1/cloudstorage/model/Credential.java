@@ -7,15 +7,23 @@ public class Credential {
     private String key;
     private String password;
     private String decryptedPassword;
+    private Long userid;
 
     public Credential() { }
 
-    public Credential(Long credentialId, String url, String userName, String key, String password) {
+    public Credential(String url, String userName, String password, Long userid) {
+        this.url = url;
+        this.userName = userName;
+        this.password = password;
+        this.userid = userid;
+    }
+
+    public Credential(Long credentialId, String url, String userName, String password, Long userid) {
         this.credentialId = credentialId;
         this.url = url;
         this.userName = userName;
-        this.key = key;
         this.password = password;
+        this.userid = userid;
     }
 
     public Long getCredentialId() {
@@ -64,5 +72,13 @@ public class Credential {
 
     public void setDecryptedPassword(String decryptedPassword) {
         this.decryptedPassword = decryptedPassword;
+    }
+
+    public Long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Long userid) {
+        this.userid = userid;
     }
 }
