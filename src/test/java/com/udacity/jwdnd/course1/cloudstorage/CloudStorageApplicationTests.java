@@ -62,4 +62,10 @@ class CloudStorageApplicationTests {
 		Assertions.assertEquals("Home", driver.getTitle());
 	}
 
+	@Test
+	@Order(3)
+	public void testUnauthorizedLogin() throws InterruptedException {
+		driver.get("http://localhost:" + this.port + "/home");
+		Assertions.assertEquals("Login", driver.getTitle());
+	}
 }
