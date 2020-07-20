@@ -52,4 +52,14 @@ class CloudStorageApplicationTests {
 		Assertions.assertEquals("Home", driver.getTitle());
 	}
 
+	@Test
+	@Order(2)
+	public void testValidLogin() throws InterruptedException {
+		driver.get("http://localhost:" + this.port + "/login");
+		driver.findElement(By.id("inputUsername")).sendKeys("TomH");
+		driver.findElement(By.id("inputPassword")).sendKeys("TomPass");
+		driver.findElement(By.id("submit-button")).click();
+		Assertions.assertEquals("Home", driver.getTitle());
+	}
+
 }
