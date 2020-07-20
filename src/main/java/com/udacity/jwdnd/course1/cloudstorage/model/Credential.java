@@ -9,19 +9,22 @@ public class Credential {
     private String decryptedPassword;
     private Long userid;
 
-    public Credential() { }
+    public Credential() {
+    }
 
-    public Credential(String url, String userName, String password, Long userid) {
+    public Credential(String url, String userName, String password, Long userid, String key) {
         this.url = url;
         this.userName = userName;
+        this.key = key;
         this.password = password;
         this.userid = userid;
     }
 
-    public Credential(Long credentialId, String url, String userName, String password, Long userid) {
+    public Credential(Long credentialId, String url, String userName, String password, Long userid, String key) {
         this.credentialId = credentialId;
         this.url = url;
         this.userName = userName;
+        this.key = key;
         this.password = password;
         this.userid = userid;
     }
