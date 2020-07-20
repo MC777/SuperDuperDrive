@@ -36,7 +36,7 @@ class CloudStorageApplicationTests {
 
 	@Test
 	@Order(1)
-	public void getLoginPage() throws InterruptedException{
+	public void getLoginPage() throws InterruptedException {
 		driver.get("http://localhost:" + this.port + "/signup");
 		driver.findElement(By.id("inputFirstName")).sendKeys("Tom");
 		driver.findElement(By.id("inputLastName")).sendKeys("Hanks");
@@ -67,5 +67,40 @@ class CloudStorageApplicationTests {
 	public void testUnauthorizedLogin() throws InterruptedException {
 		driver.get("http://localhost:" + this.port + "/home");
 		Assertions.assertEquals("Login", driver.getTitle());
+	}
+
+	@Test
+	@Order(4)
+	public void testNote() throws InterruptedException {
+		driver.get("http://localhost:" + this.port + "/login");
+		driver.findElement(By.id("inputUsername")).sendKeys("TomH");
+		driver.findElement(By.id("inputPassword")).sendKeys("TomPass");
+		driver.findElement(By.id("submit-button")).click();
+		driver.findElement(By.id("nav-notes-tab")).click();
+		Thread.sleep(3000);
+
+		boolean noteCreated = false;
+		try {
+			driver.findElement(By.id("buttonAddNewNote")).click();
+			Thread.sleep(3000);
+			driver.findElement(By.id("note-title")).sendKeys("title");
+			driver.findElement(By.id("note-description")).sendKeys("description");
+			driver.findElement(By.id("noteSubmit")).click();
+			Thread.sleep(3000);
+			noteCreated = true;
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		try {
+			driver.findElement(By.id("buttonAddNewNote")).click();
+			Thread.sleep(2000);
+			driver.findElement(By.id("note-title")).sendKeys("title");
+			driver.findElement(By.id("note-description")).sendKeys("description");
+			driver.findElement(By.id("noteSubmit")).click();
+			Thread.sleep(2000);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 }
