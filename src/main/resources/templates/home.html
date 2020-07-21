@@ -7,6 +7,17 @@
     <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/bootstrap.min.css}">
 
     <title>Home</title>
+    <script>
+        $(document).ready(function(){
+            $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+                localStorage.setItem('activeTab', $(e.target).attr('href'));
+            });
+            var activeTab = localStorage.getItem('activeTab');
+            if(activeTab){
+                $('#nav-tab a[href="' + activeTab + '"]').tab('show');
+            }
+        });
+    </script>
 </head>
 <body class="p-3 mb-2 bg-light text-black">
 <div class="container">
@@ -140,7 +151,7 @@
                 <div id="credential-delete-msg" th:if="${credentialDeleteSuccess}" th:text="${credentialDeleteSuccess}" class="alert alert-success" role="alert"/>
                 <div id="credential-edit-msg" th:if="${credentialEditSuccess}" th:text="${credentialEditSuccess}" class="alert alert-success" role="alert"/>
                 <div id="credential-error-msg" th:if="${credentialError}" th:text="${credentialError}" class="alert alert-danger" role="alert"/>
-                <button style="margin: 0.25em;" type="button" class="btn btn-info float-right"
+                <button id="add-new-credential" style="margin: 0.25em;" type="button" class="btn btn-info float-right"
                         onclick="showCredentialModal()">
                     + Add a New Credential
                 </button>
@@ -156,7 +167,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="credential: ${credentials}">
+                        <tr th:each="credential:${credentials}">
                             <td>
                                 <button type="button" class="btn btn-success"
                                         th:onclick="javascript:showCredentialModal([[${credential.credentialId}]],[[${credential.url}]],[[${credential.userName}]],[[${credential.password}]])">
@@ -206,7 +217,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" onclick="$('#credentialSubmit').click();">
+                                <button id="credential-submit" type="button" class="btn btn-primary" onclick="$('#credentialSubmit').click();">
                                     Save changes
                                 </button>
                             </div>
