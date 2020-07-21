@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 
 @Service
@@ -45,5 +46,18 @@ public class FileService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isFileNameAvailable(MultipartFile multipartFile, Long userid) {
+        Boolean isFileNameAvailable = true;
+        List <File> files = fileMapper.findFilesByUserId(userid);
+        for (int i = 0; i < files.size(); i++){
+            File currFile = files.get(i);
+            if (currFile.getFileName().equals(multipartFile.getOriginalFilename())) {
+                isFileNameAvailable = false;
+                break;
+            }
+        }
+        return isFileNameAvailable;
     }
 }
