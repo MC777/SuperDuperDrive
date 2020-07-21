@@ -1,6 +1,7 @@
 package com.udacity.jwdnd.course1.cloudstorage;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.lang3.ObjectUtils;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -79,6 +80,7 @@ class CloudStorageApplicationTests {
         driver.findElement(By.id("inputUsername")).sendKeys("TomH");
         driver.findElement(By.id("inputPassword")).sendKeys("TomPass");
         driver.findElement(By.id("submit-button")).click();
+        Thread.sleep(4000);
         driver.findElement(By.id("nav-notes-tab")).click();
         Thread.sleep(4000);
 
@@ -110,6 +112,7 @@ class CloudStorageApplicationTests {
 
         //testing deletion of note
         boolean noteDeleted = false;
+        Thread.sleep(4000);
         driver.findElement(By.id("nav-notes-tab")).click();
         Thread.sleep(4000);
         WebElement notesTable = driver.findElement(By.id("userTable"));
@@ -120,8 +123,38 @@ class CloudStorageApplicationTests {
             noteDeleted = true;
             break;
         }
+        Thread.sleep(6000);
+        driver.findElement(By.id("return-home")).click();
+        Thread.sleep(6000);
+
+
+        //testing for edition of note
+        driver.findElement(By.id("nav-notes-tab")).click();
+        Thread.sleep(5000);
+        notesTable = driver.findElement(By.id("userTable"));
+        List<WebElement> noteList = notesTable.findElements(By.tagName("td"));
+        boolean noteEdited = false;
+        for (int i=0; i<noteList.size(); i++){
+            WebElement row = noteList.get(i);
+            WebElement editButton = null;
+            editButton = row.findElement(By.tagName("button"));
+            editButton.click();
+            if (!ObjectUtils.isEmpty(editButton)){
+                Thread.sleep(5000);
+                driver.findElement(By.id("note-title")).sendKeys("test");
+                driver.findElement(By.id("note-description")).sendKeys("test");
+                driver.findElement(By.id("saveNoteButton")).click();
+                Thread.sleep(5000);
+                noteEdited = true;
+                driver.findElement(By.id("return-home")).click();
+                Thread.sleep(5000);
+                Assertions.assertEquals("Home", driver.getTitle());
+                break;
+            }
+        }
 
         Assertions.assertTrue(noteCreated);
         Assertions.assertTrue(noteDeleted);
+        Assertions.assertTrue(noteEdited);
     }
 }
